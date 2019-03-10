@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 //--------------------------------CONNEXION A LA BASE DE DONNEES-------------------------------->
 try {
@@ -11,10 +11,8 @@ try {
 
 //--------------------------------LECTURE DE LA BASE DE DONNEES---------------------------------->
 $reponse = $db->query('SELECT * FROM events');
-while ($infos = $reponse->fetch (PDO::FETCH_ASSOC)) {    //FETCH dans un while pour passer le tableau en revue ligne a ligne
-    #echo '<pre>';print_r ($infos);echo'</pre>'; //<pre></pre> fait les retours a la ligne -> mise en page
-    //print_r pour afficher le contenu d'une variable
-}
+while ($infos = $reponse->fetch (PDO::FETCH_ASSOC)) {  //FETCH dans un while pour passer le tableau en revue ligne a ligne
+}                                                 
 ?>
 
 <?php
@@ -386,15 +384,6 @@ if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'save' && isset( $_R
 					$next_month = $current_month + 1;
 					$next_year = $current_year;
 				}
-				
-				// Mois précédent - méthode 2
-				/*$previous_month = date( 'm', strtotime( 'previous month', $this_month ) );
-				$previous_year = date( 'Y', strtotime( 'previous month', $this_month ) );
-
-				// Mois suivant - méthode 2
-				$next_month = date( 'm', strtotime( 'next month', $this_month ) );
-				$next_year = date( 'Y', strtotime( 'next month', $this_month ) );*/
-				
 			?>
 			<!--------------------------------------FLECHES ACTIVES------------------------------------------>
 			<div class="month">
@@ -457,17 +446,6 @@ if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'save' && isset( $_R
 					
 					// Jour désactivé
 					if ( in_array( $current_day, $disabled ) ) $classes .= ' disabled';
-					
-					// Jour avec événements 
-					/*if ( isset( $events[$current_day->format( 'Y-m-d' )] ) ){
-						$classes .= ' event';
-						
-						$event_text = '';
-						foreach ( $events[$current_day->format( 'Y-m-d' )] as $event )
-							$event_text .= $db['title'] . '<br/>';
-						
-						$infos = '<div class="infos">' . $event_text . '</div>';
-					}*/
 
 					//Creation new tableau avec tous les events -> pastille aux jours à events
 					foreach ($eventsall as $element) {
@@ -516,30 +494,9 @@ if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'save' && isset( $_R
 			$reponse = $db->query('SELECT * FROM events');
 			while ($infos = $reponse->fetch (PDO::FETCH_ASSOC)) {  
 				echo '<pre>';
-				print_r ($infos);
+				print_r ($infos); //print_r pour afficher le contenu d'une variable
 				echo'</pre>'; 
 }
-				// On vérifie qu'il y a au moins 1 événement
-				/*if ( $events )
-				{
-					// On parcourt les jours
-					foreach ( $events as $date => $day_events )
-					{
-						// On parcours les événements du jour
-						foreach ( $day_events as $event )
-						{
-							$current_date = new DateTime( $date );
-							
-							echo '<li><em>' . $current_date->format( 'd.m.Y' ) . '</em> - ' . $event['title'];
-							
-							// Bonus
-							if ( isset( $event['image'] ) )
-								echo '<br/><img src="upload/' . $event['image'] . '" width="50" />';
-							
-							echo '</li>';
-						}
-					}
-				}*/
 			?>
 		</ul>
 	</div>
